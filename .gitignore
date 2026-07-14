@@ -1,0 +1,27 @@
+# 의존성 (현재 CDN 방식이라 미사용하지만, 추후 빌드 전환 대비)
+node_modules/
+package-lock.json
+
+# 빌드 산출물
+dist/
+build/
+
+# 로그
+*.log
+npm-debug.log*
+
+# 환경 변수
+.env
+.env.local
+
+# OS 생성 파일
+.DS_Store
+Thumbs.db
+
+# 에디터 설정
+.vscode/
+.idea/
+*.swp
+
+# Claude Code 개인 로컬 설정
+.claude/settings.local.json

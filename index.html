@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO 메타 태그 -->
+  <title>홍길동 | 프론트엔드 개발자 이력서</title>
+  <meta name="description" content="사용자 경험을 중시하는 프론트엔드 개발자 홍길동의 웹 이력서입니다. 기술 스택, 경력, 프로젝트를 확인해 보세요." />
+  <meta name="author" content="홍길동" />
+
+  <!-- Open Graph (SNS 공유용) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="홍길동 | 프론트엔드 개발자 이력서" />
+  <meta property="og:description" content="사용자 경험을 중시하는 프론트엔드 개발자 홍길동의 웹 이력서" />
+  <meta property="og:locale" content="ko_KR" />
+
+  <!-- 파비콘 -->
+  <link rel="icon" type="image/svg+xml" href="./assets/icons/favicon.svg" />
+
+  <!-- 웹폰트 (Inter + Noto Sans KR) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- 커스텀 스타일 -->
+  <link rel="stylesheet" href="./src/css/custom.css" />
+
+  <!-- Tailwind CSS (Play CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind 설정: 다크모드는 class 전략, 기본 폰트 지정
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Inter", "Noto Sans KR", "system-ui", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+  <script>
+    // FOUC(테마 깜빡임) 방지: 페인트 전에 저장된 테마를 미리 적용한다.
+    (function () {
+      var saved = localStorage.getItem("theme");
+      var isDark =
+        saved === "dark" ||
+        (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      if (isDark) document.documentElement.classList.add("dark");
+    })();
+  </script>
+
+  <!-- JavaScript 비활성 환경에서도 콘텐츠가 보이도록 등장 애니메이션 초기 상태를 해제한다. -->
+  <noscript>
+    <style>
+      [data-reveal] { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
+</head>
+
+<body class="bg-white font-sans text-slate-700 antialiased dark:bg-slate-900 dark:text-slate-300">
+  <!-- 키보드 사용자를 위한 본문 바로가기 -->
+  <a href="#home" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-indigo-600 focus:px-4 focus:py-2 focus:text-white">
+    본문으로 건너뛰기
+  </a>
+
+  <!-- ============ 헤더 / 네비게이션 ============ -->
+  <header class="fixed inset-x-0 top-0 z-40 border-b border-slate-200/70 bg-white/80 backdrop-blur dark:border-slate-700/70 dark:bg-slate-900/80">
+    <nav class="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6" aria-label="주요 메뉴">
+      <a href="#home" class="text-lg font-bold text-slate-900 dark:text-white">
+        홍길동<span class="text-indigo-600 dark:text-indigo-400">.dev</span>
+      </a>
+
+      <!-- 데스크톱 메뉴 -->
+      <ul class="hidden items-center gap-6 md:flex">
+        <li><a data-nav-link href="#about" class="text-sm transition-colors hover:text-indigo-600 dark:hover:text-indigo-400">소개</a></li>
+        <li><a data-nav-link href="#skills" class="text-sm transition-colors hover:text-indigo-600 dark:hover:text-indigo-400">기술</a></li>
+        <li><a data-nav-link href="#experience" class="text-sm transition-colors hover:text-indigo-600 dark:hover:text-indigo-400">경력</a></li>
+        <li><a data-nav-link href="#projects" class="text-sm transition-colors hover:text-indigo-600 dark:hover:text-indigo-400">프로젝트</a></li>
+        <li><a data-nav-link href="#education" class="text-sm transition-colors hover:text-indigo-600 dark:hover:text-indigo-400">학력</a></li>
+        <li><a data-nav-link href="#contact" class="text-sm transition-colors hover:text-indigo-600 dark:hover:text-indigo-400">연락처</a></li>
+      </ul>
+
+      <div class="flex items-center gap-2">
+        <!-- 다크모드 토글 -->
+        <button
+          type="button"
+          data-theme-toggle
+          class="rounded-md p-2 text-slate-600 transition-colors hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+          aria-label="다크모드 전환"
+        >
+          <!-- 해 아이콘 (다크모드일 때 표시) -->
+          <svg data-theme-icon="sun" class="hidden h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+          </svg>
+          <!-- 달 아이콘 (라이트모드일 때 표시) -->
+          <svg data-theme-icon="moon" class="hidden h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+          </svg>
+        </button>
+
+        <!-- 모바일 햄버거 버튼 -->
+        <button
+          type="button"
+          data-menu-toggle
+          class="rounded-md p-2 text-slate-600 transition-colors hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 md:hidden"
+          aria-label="메뉴 열기"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- 모바일 메뉴 (기본 숨김) -->
+    <div id="mobile-menu" data-mobile-menu class="hidden border-t border-slate-200 bg-white px-4 py-3 dark:border-slate-700 dark:bg-slate-900 md:hidden">
+      <ul class="flex flex-col gap-1">
+        <li><a href="#about" class="block rounded-md px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-800">소개</a></li>
+        <li><a href="#skills" class="block rounded-md px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-800">기술</a></li>
+        <li><a href="#experience" class="block rounded-md px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-800">경력</a></li>
+        <li><a href="#projects" class="block rounded-md px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-800">프로젝트</a></li>
+        <li><a href="#education" class="block rounded-md px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-800">학력</a></li>
+        <li><a href="#contact" class="block rounded-md px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-800">연락처</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ Hero ============ -->
+    <section id="home" class="mx-auto flex min-h-screen max-w-5xl flex-col items-center justify-center px-4 pt-16 text-center sm:px-6">
+      <div data-reveal class="flex flex-col items-center">
+        <!-- 프로필 아바타 (이니셜 SVG) -->
+        <div class="mb-6 flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-4xl font-bold text-white shadow-lg" aria-hidden="true">
+          홍
+        </div>
+        <p class="mb-2 text-sm font-medium uppercase tracking-widest text-indigo-600 dark:text-indigo-400">Frontend Developer</p>
+        <h1 class="text-4xl font-bold text-slate-900 dark:text-white sm:text-5xl">안녕하세요, 홍길동입니다</h1>
+        <p class="mt-4 max-w-xl text-base text-slate-600 dark:text-slate-400 sm:text-lg">
+          사용자 경험을 중시하며, 깔끔하고 접근성 높은 웹을 만드는 프론트엔드 개발자입니다.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a href="#projects" class="rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900">
+            프로젝트 보기
+          </a>
+          <a href="#contact" class="rounded-lg border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800">
+            연락하기
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ About ============ -->
+    <section id="about" aria-labelledby="about-title" class="mx-auto max-w-5xl px-4 py-20 sm:px-6">
+      <div data-reveal>
+        <h2 id="about-title" class="mb-3 text-center text-3xl font-bold text-slate-900 dark:text-white">소개</h2>
+        <div class="mx-auto mb-10 h-1 w-16 rounded bg-indigo-600"></div>
+        <p class="mx-auto max-w-3xl text-center text-base leading-relaxed text-slate-600 dark:text-slate-400 sm:text-lg">
+          웹 개발에 즐거움을 느끼는 프론트엔드 개발자입니다. HTML, CSS, JavaScript를 기반으로
+          반응형 웹과 인터랙티브한 UI를 구현하는 것을 좋아합니다. 새로운 기술을 배우고
+          팀과 소통하며 더 나은 사용자 경험을 만드는 데 관심이 많습니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ Skills ============ -->
+    <section id="skills" aria-labelledby="skills-title" class="bg-slate-50 dark:bg-slate-800/40">
+      <div class="mx-auto max-w-5xl px-4 py-20 sm:px-6">
+        <div data-reveal>
+          <h2 id="skills-title" class="mb-3 text-center text-3xl font-bold text-slate-900 dark:text-white">기술 스택</h2>
+          <div class="mx-auto mb-10 h-1 w-16 rounded bg-indigo-600"></div>
+          <div class="grid gap-6 sm:grid-cols-2">
+            <div class="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+              <h3 class="mb-4 text-lg font-semibold text-slate-900 dark:text-white">프론트엔드</h3>
+              <ul class="flex flex-wrap gap-2">
+                <li class="rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300">HTML5</li>
+                <li class="rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300">CSS3</li>
+                <li class="rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300">JavaScript (ES6+)</li>
+                <li class="rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300">TailwindCSS</li>
+                <li class="rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300">React</li>
+              </ul>
+            </div>
+            <div class="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+              <h3 class="mb-4 text-lg font-semibold text-slate-900 dark:text-white">도구 &amp; 협업</h3>
+              <ul class="flex flex-wrap gap-2">
+                <li class="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700 dark:bg-slate-700 dark:text-slate-200">Git</li>
+                <li class="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700 dark:bg-slate-700 dark:text-slate-200">GitHub</li>
+                <li class="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700 dark:bg-slate-700 dark:text-slate-200">VS Code</li>
+                <li class="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700 dark:bg-slate-700 dark:text-slate-200">Figma</li>
+                <li class="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700 dark:bg-slate-700 dark:text-slate-200">Vite</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Experience ============ -->
+    <section id="experience" aria-labelledby="experience-title" class="mx-auto max-w-5xl px-4 py-20 sm:px-6">
+      <div data-reveal>
+        <h2 id="experience-title" class="mb-3 text-center text-3xl font-bold text-slate-900 dark:text-white">경력</h2>
+        <div class="mx-auto mb-10 h-1 w-16 rounded bg-indigo-600"></div>
+        <ol class="relative mx-auto max-w-2xl border-l border-slate-200 dark:border-slate-700">
+          <li class="mb-10 ml-6">
+            <span class="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full bg-indigo-600 ring-4 ring-white dark:ring-slate-900"></span>
+            <p class="text-sm text-slate-500 dark:text-slate-400">2023.03 ~ 현재</p>
+            <h3 class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">OO소프트 · 프론트엔드 개발자</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+              사내 웹 서비스의 UI 컴포넌트를 개발하고 반응형 레이아웃을 개선했습니다.
+              접근성 및 성능 최적화를 통해 사용자 경험을 향상시켰습니다.
+            </p>
+          </li>
+          <li class="ml-6">
+            <span class="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full bg-indigo-600 ring-4 ring-white dark:ring-slate-900"></span>
+            <p class="text-sm text-slate-500 dark:text-slate-400">2022.06 ~ 2023.02</p>
+            <h3 class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">OO스튜디오 · 웹 퍼블리셔 (인턴)</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+              디자인 시안을 HTML/CSS로 구현하고 크로스 브라우저 호환성을 확보했습니다.
+              간단한 JavaScript 인터랙션을 담당했습니다.
+            </p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ Projects ============ -->
+    <section id="projects" aria-labelledby="projects-title" class="bg-slate-50 dark:bg-slate-800/40">
+      <div class="mx-auto max-w-5xl px-4 py-20 sm:px-6">
+        <div data-reveal>
+          <h2 id="projects-title" class="mb-3 text-center text-3xl font-bold text-slate-900 dark:text-white">프로젝트</h2>
+          <div class="mx-auto mb-10 h-1 w-16 rounded bg-indigo-600"></div>
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- 프로젝트 카드 -->
+            <article class="flex flex-col rounded-xl border border-slate-200 bg-white p-6 transition-shadow hover:shadow-md dark:border-slate-700 dark:bg-slate-800">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">반응형 웹 이력서</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                HTML, TailwindCSS, JavaScript로 만든 단일 페이지 이력서. 다크모드와 스크롤 애니메이션을 지원합니다.
+              </p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="rounded bg-slate-100 px-2 py-0.5 text-xs text-slate-600 dark:bg-slate-700 dark:text-slate-300">HTML</span>
+                <span class="rounded bg-slate-100 px-2 py-0.5 text-xs text-slate-600 dark:bg-slate-700 dark:text-slate-300">Tailwind</span>
+                <span class="rounded bg-slate-100 px-2 py-0.5 text-xs text-slate-600 dark:bg-slate-700 dark:text-slate-300">JS</span>
+              </div>
+              <a href="#" class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-indigo-600 hover:underline dark:text-indigo-400">
+                자세히 보기
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </article>
+
+            <article class="flex flex-col rounded-xl border border-slate-200 bg-white p-6 transition-shadow hover:shadow-md dark:border-slate-700 dark:bg-slate-800">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">쇼핑몰 클론</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                React로 구현한 쇼핑몰 UI. 상품 목록, 장바구니, 필터 기능을 포함합니다.
+              </p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="rounded bg-slate-100 px-2 py-0.5 text-xs text-slate-600 dark:bg-slate-700 dark:text-slate-300">React</span>
+                <span class="rounded bg-slate-100 px-2 py-0.5 text-xs text-slate-600 dark:bg-slate-700 dark:text-slate-300">CSS</span>
+              </div>
+              <a href="#" class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-indigo-600 hover:underline dark:text-indigo-400">
+                자세히 보기
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </article>
+
+            <article class="flex flex-col rounded-xl border border-slate-200 bg-white p-6 transition-shadow hover:shadow-md dark:border-slate-700 dark:bg-slate-800">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">날씨 대시보드</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                공개 API를 활용해 지역별 날씨를 보여주는 대시보드. Vanilla JavaScript로 제작했습니다.
+              </p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="rounded bg-slate-100 px-2 py-0.5 text-xs text-slate-600 dark:bg-slate-700 dark:text-slate-300">JavaScript</span>
+                <span class="rounded bg-slate-100 px-2 py-0.5 text-xs text-slate-600 dark:bg-slate-700 dark:text-slate-300">API</span>
+              </div>
+              <a href="#" class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-indigo-600 hover:underline dark:text-indigo-400">
+                자세히 보기
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Education ============ -->
+    <section id="education" aria-labelledby="education-title" class="mx-auto max-w-5xl px-4 py-20 sm:px-6">
+      <div data-reveal>
+        <h2 id="education-title" class="mb-3 text-center text-3xl font-bold text-slate-900 dark:text-white">학력 &amp; 교육</h2>
+        <div class="mx-auto mb-10 h-1 w-16 rounded bg-indigo-600"></div>
+        <div class="mx-auto max-w-2xl space-y-4">
+          <div class="flex items-start justify-between gap-4 rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800">
+            <div>
+              <h3 class="font-semibold text-slate-900 dark:text-white">OO대학교 컴퓨터공학과</h3>
+              <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">학사 졸업</p>
+            </div>
+            <span class="whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">2018 ~ 2022</span>
+          </div>
+          <div class="flex items-start justify-between gap-4 rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800">
+            <div>
+              <h3 class="font-semibold text-slate-900 dark:text-white">프론트엔드 개발 부트캠프</h3>
+              <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">웹 개발 심화 과정 수료</p>
+            </div>
+            <span class="whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">2022</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Contact ============ -->
+    <section id="contact" aria-labelledby="contact-title" class="bg-slate-50 dark:bg-slate-800/40">
+      <div class="mx-auto max-w-5xl px-4 py-20 sm:px-6">
+        <div data-reveal class="text-center">
+          <h2 id="contact-title" class="mb-3 text-3xl font-bold text-slate-900 dark:text-white">연락처</h2>
+          <div class="mx-auto mb-10 h-1 w-16 rounded bg-indigo-600"></div>
+          <p class="mb-8 text-base text-slate-600 dark:text-slate-400">
+            새로운 기회와 협업을 환영합니다. 편하게 연락해 주세요!
+          </p>
+          <div class="flex flex-wrap items-center justify-center gap-4">
+            <a href="mailto:example@email.com" class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-indigo-700">
+              이메일 보내기
+            </a>
+            <a href="https://github.com/username" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800">
+              GitHub
+            </a>
+            <a href="https://linkedin.com/in/username" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800">
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ 푸터 ============ -->
+  <footer class="border-t border-slate-200 py-8 text-center dark:border-slate-700">
+    <p class="text-sm text-slate-500 dark:text-slate-400">
+      &copy; <span data-current-year>2026</span> 홍길동. All rights reserved.
+    </p>
+  </footer>
+
+  <!-- 맨 위로 이동 버튼 -->
+  <button
+    type="button"
+    data-back-to-top
+    class="fixed bottom-6 right-6 z-40 rounded-full bg-indigo-600 p-3 text-white opacity-0 shadow-lg transition-opacity duration-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
+    aria-label="맨 위로 이동"
+  >
+    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+    </svg>
+  </button>
+
+  <!-- JavaScript (file:// 호환을 위해 일반 스크립트로 순서대로 로드) -->
+  <script src="./src/js/theme.js"></script>
+  <script src="./src/js/scroll.js"></script>
+  <script src="./src/js/main.js"></script>
+</body>
+</html>

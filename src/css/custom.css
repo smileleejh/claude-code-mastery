@@ -1,0 +1,41 @@
+/* custom.css
+ * Tailwind 유틸리티로 표현하기 어려운 애니메이션과 스크롤 동작을 정의한다.
+ * (Tailwind Play CDN 방식이므로 별도 빌드 없이 index.html에서 직접 링크한다.)
+ */
+
+/* 부드러운 스크롤 (고정 네비게이션과 함께 사용) */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 고정 네비게이션 높이만큼 앵커 이동 위치를 보정한다. */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* 스크롤 등장 애니메이션의 초기 상태 (화면 밖일 때) */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+/* IntersectionObserver가 is-visible 클래스를 부여하면 제자리로 등장한다. */
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 모션 최소화를 선호하는 사용자에게는 애니메이션을 비활성화한다. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
