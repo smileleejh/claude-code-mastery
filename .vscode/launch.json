@@ -1,0 +1,39 @@
+{
+  // Next.js 로컬 디버깅 설정. (이전 정적 사이트용 localhost:8080 설정을 대체)
+  // - "개발 서버 실행"으로 서버를 띄운 뒤 브라우저에서 http://localhost:3000 접속
+  // - 또는 "풀스택 디버그" 하나로 서버 기동 + 브라우저 자동 실행
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Next.js: 개발 서버 실행 (서버 사이드)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Next.js: 브라우저 디버그 (클라이언트)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "Next.js: 풀스택 디버그",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/next/dist/bin/next",
+      "args": ["dev"],
+      "cwd": "${workspaceFolder}",
+      "runtimeArgs": ["--inspect"],
+      "skipFiles": ["<node_internals>/**"],
+      "serverReadyAction": {
+        "action": "debugWithChrome",
+        "killOnServerStop": true,
+        "pattern": "- Local:.+(https?://.+)",
+        "uriFormat": "%s",
+        "webRoot": "${workspaceFolder}"
+      }
+    }
+  ]
+}
